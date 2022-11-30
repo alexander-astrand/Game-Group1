@@ -5,8 +5,8 @@ let gameOver = document.getElementById("message");
 let scoreValue = 0;
 
 let playerAlive = true;
-let bottom = 500;
-let left = 500;
+let beeBottom = 500;
+let beeLeft = 500;
 
 let enemySpeed = -20;
 let enemySpeed2 = -30;
@@ -39,8 +39,6 @@ let arr = JSON.parse(localStorage.getItem("Highscore"));
 highScore.innerHTML = "Highscore: " + largest(arr);
 
 
-
-
 function countTimer() {
            ++totalSeconds;
            var hour = Math.floor(totalSeconds /3600);
@@ -61,8 +59,8 @@ document.addEventListener("keydown", (e) => {
     switch (e.key) {
         case "w":
         case "ArrowUp":
-            bottom += 20;
-            hero.style.bottom = bottom + "px"
+            beeBottom += 20;
+            hero.style.bottom = beeBottom + "px"
             if(heroRotation = -90) {
                 heroRotation += 90
                 hero.style.rotate = heroRotation + "deg";
@@ -74,8 +72,8 @@ document.addEventListener("keydown", (e) => {
             break;
         case "s":
         case "ArrowDown":
-            bottom -= 20;
-            hero.style.bottom = bottom + "px";
+            beeBottom -= 20;
+            hero.style.bottom = beeBottom + "px";
             if(heroRotation = -90) {
                 heroRotation += -90
                 hero.style.rotate = heroRotation + "deg";
@@ -87,8 +85,8 @@ document.addEventListener("keydown", (e) => {
             break;
         case "d":
         case "ArrowRight":
-            left += 20;
-            hero.style.left = left + "px"
+            beeLeft += 20;
+            hero.style.left = beeLeft + "px"
             if(heroRotation != 90) {
             heroRotation += 90
             hero.style.rotate = heroRotation + "deg";
@@ -100,8 +98,8 @@ document.addEventListener("keydown", (e) => {
             break;
         case "a":
         case "ArrowLeft":
-            left -= 20;
-            hero.style.left = left + "px";
+            beeLeft -= 20;
+            hero.style.left = beeLeft + "px";
             if(heroRotation != -90) {
                 heroRotation -= 90
                 hero.style.rotate = heroRotation + "deg";
@@ -150,7 +148,7 @@ function createEnemy(randNum) {
 
         //Collision detector
         //if (enemyBottom > bottom && enemyBottom < bottom + 150 && enemyLeft === left) {
-        if (Math.abs(enemyBottom - bottom) < 50 && Math.abs(enemyLeft - left) < 50) {
+        if (Math.abs(enemyBottom - beeBottom) < 50 && Math.abs(enemyLeft - beeLeft) < 50) {
             console.log("HERO HIT");
             hero.remove();
             gameOver.innerHTML = "Game over <br/>";
@@ -182,18 +180,16 @@ function createEnemy(randNum) {
             enemy.remove();
             //setTimeout(createEnemy(color), 5000);
             if (playerAlive) {
-                enemy.remove();
-                createEnemy(1,2);
+                createEnemy();
                 /* let randomNumber = Math.ceil(Math.random() * 10); */
                 
                 if (randNum > 0) {
                     createEnemy((randNum - 1))
                     }
-        /*         
+                
                 if((totalSeconds > 10 && totalSeconds < 20) || (totalSeconds > 40 && totalSeconds < 45)) {
-              createEnemy();
-              createEnemy();
-                      } */
+                    createEnemy();
+                      }
                 }
             }
 
@@ -202,8 +198,6 @@ function createEnemy(randNum) {
 }
 
 createEnemy();
-
-
 
 
 function createEnemyRight() {
@@ -231,7 +225,7 @@ function createEnemyRight() {
 
         //Collision detector
         //if (enemyBottom > bottom && enemyBottom < bottom + 150 && enemyLeft === left) {
-        if (Math.abs(enemyBottom2 - bottom) < 100 && Math.abs(enemyLeft2 - left) < 100) {
+        if (Math.abs(enemyBottom2 - beeBottom) < 175 && Math.abs(enemyLeft2 - beeLeft) < 25) {
             console.log("HERO HIT");
             hero.remove();
             gameOver.innerHTML = "Game over <br/>";
@@ -255,25 +249,12 @@ function createEnemyRight() {
             newGameBtn.onclick = function() {
                 location.reload();
             }
-            //enemy.remove();
         }
-        //Math.abs(enemyBottom - bottom) < 25
-        if (enemyBottom2 <= -100) {
+        if (enemyLeft2 <= -100) {
             clearInterval(move)
             enemy2.remove();
-            //setTimeout(createEnemy(color), 5000);
             if (playerAlive) {
                 createEnemyRight();
-                /* let randomNumber = Math.ceil(Math.random() * 10); */
-                
-                /* if (randNum > 0) {
-                    createEnemy((randNum - 1))
-                    } */
-        /*         
-                if((totalSeconds > 10 && totalSeconds < 20) || (totalSeconds > 40 && totalSeconds < 45)) {
-              createEnemy();
-              createEnemy();
-                      } */
                 }
             }
 
