@@ -1,7 +1,7 @@
 let hero = document.getElementById("hero");
 let game = document.getElementById("game");
 let highScore = document.getElementById("highScore");
-let messageElement = document.getElementById("message");
+let gameOver = document.getElementById("message");
 let scoreValue = 0;
 
 let playerAlive = true;
@@ -9,6 +9,7 @@ let bottom = 500;
 let left = 500;
 
 let enemySpeed = -20;
+let enemySpeed2 = -30;
 let heroRotation = 0;
 
 var timerVar = setInterval(countTimer, 1000);
@@ -24,13 +25,7 @@ localStorage.setItem("Highscore", JSON.stringify(highScore));
 
 function largest(arr) { 
     let i; 
-    
-    // Initialize maximum element 
     let max = arr[0]; 
-
-    // Traverse array elements  
-    // from second and compare 
-    // every element with current max  
     for (i = 1; i < arr.length; i++) {
         if (arr[i] > max) 
             max = arr[i]; 
@@ -122,6 +117,7 @@ document.addEventListener("keydown", (e) => {
 })
 
 let enemyId = 0;
+let enemyId2 = 0;
 
 function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -154,17 +150,17 @@ function createEnemy(randNum) {
 
         //Collision detector
         //if (enemyBottom > bottom && enemyBottom < bottom + 150 && enemyLeft === left) {
-        if (Math.abs(enemyBottom - bottom) < 25 && Math.abs(enemyLeft - left) < 25) {
+        if (Math.abs(enemyBottom - bottom) < 50 && Math.abs(enemyLeft - left) < 50) {
             console.log("HERO HIT");
             hero.remove();
-            messageElement.innerHTML = "Game over <br/>";
+            gameOver.innerHTML = "Game over <br/>";
             //clearInterval(move)
             clearInterval(move)
             playerAlive = false;
             enemy.remove();
             let newGameBtn = document.createElement("button");
             newGameBtn.innerHTML = "New game";
-            messageElement.appendChild(newGameBtn);
+            gameOver.appendChild(newGameBtn);
             clearInterval(timerVar);
             //Save time
             let highScore = JSON.parse(localStorage.getItem("Highscore"));
@@ -186,20 +182,18 @@ function createEnemy(randNum) {
             enemy.remove();
             //setTimeout(createEnemy(color), 5000);
             if (playerAlive) {
-                createEnemy();
+                enemy.remove();
+                createEnemy(1,2);
                 /* let randomNumber = Math.ceil(Math.random() * 10); */
                 
-                /* if (randNum > 0) {
+                if (randNum > 0) {
                     createEnemy((randNum - 1))
-                    } */
-                
+                    }
+        /*         
                 if((totalSeconds > 10 && totalSeconds < 20) || (totalSeconds > 40 && totalSeconds < 45)) {
               createEnemy();
               createEnemy();
-                      }
-                      
-                      
-            
+                      } */
                 }
             }
 
@@ -208,3 +202,84 @@ function createEnemy(randNum) {
 }
 
 createEnemy();
+
+
+
+
+function createEnemyRight() {
+
+    /* if (randNum > 0) {
+        createEnemy((randNum - 1))
+        } */
+
+    enemyId2++;
+    let enemy2 = document.createElement("img");
+    enemy2.classList = "enemy2";
+    let enemyLeft2 = document.documentElement.clientWidth;
+    let enemyBottom2 = Math.floor(Math.random() * document.documentElement.clientHeight / 10) * 9.5;
+
+    enemy2.src = "spiderLeft.png"
+    enemy2.style.left = enemyLeft2 + "px";
+    enemy2.style.bottom = enemyBottom2 + "px";
+    enemy2.id = enemyId2;
+
+    //stänger intervallen
+    let move = setInterval(() => {
+        //Hastighet
+        enemyLeft2 += enemySpeed2;
+        enemy2.style.left = enemyLeft2 + "px";
+
+        //Collision detector
+        //if (enemyBottom > bottom && enemyBottom < bottom + 150 && enemyLeft === left) {
+        if (Math.abs(enemyBottom2 - bottom) < 100 && Math.abs(enemyLeft2 - left) < 100) {
+            console.log("HERO HIT");
+            hero.remove();
+            gameOver.innerHTML = "Game over <br/>";
+            //clearInterval(move)
+            clearInterval(move)
+            playerAlive = false;
+            enemy2.remove();
+            let newGameBtn = document.createElement("button");
+            newGameBtn.innerHTML = "New game";
+            gameOver.appendChild(newGameBtn);
+            clearInterval(timerVar);
+            //Save time
+            let highScore = JSON.parse(localStorage.getItem("Highscore"));
+            highScore.push(timer.innerHTML);
+            localStorage.setItem("Highscore", JSON.stringify(highScore));
+
+            let arr = JSON.parse(localStorage.getItem("Highscore"));
+            document.getElementById("highScore").innerHTML = "Highscore: " + largest(arr);
+            
+
+            newGameBtn.onclick = function() {
+                location.reload();
+            }
+            //enemy.remove();
+        }
+        //Math.abs(enemyBottom - bottom) < 25
+        if (enemyBottom2 <= -100) {
+            clearInterval(move)
+            enemy2.remove();
+            //setTimeout(createEnemy(color), 5000);
+            if (playerAlive) {
+                createEnemyRight();
+                /* let randomNumber = Math.ceil(Math.random() * 10); */
+                
+                /* if (randNum > 0) {
+                    createEnemy((randNum - 1))
+                    } */
+        /*         
+                if((totalSeconds > 10 && totalSeconds < 20) || (totalSeconds > 40 && totalSeconds < 45)) {
+              createEnemy();
+              createEnemy();
+                      } */
+                }
+            }
+
+    }, 60);
+    game.appendChild(enemy2);
+}
+
+
+createEnemyRight();
