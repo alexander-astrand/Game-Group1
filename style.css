@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Press+Start+2P&display=swap');
+
+#timeBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 30px;
+}
+
+#timer {
+    font-family: 'Orbitron', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#highscore {
+    font-family: 'Orbitron', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+}
+body {
+    background-image: url("background.jpg");
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+#hero {
+    text-align: center;
+    position: absolute;
+    width: 50px;
+    bottom: 500px;
+    left: 500px;
+}
+
+#message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: red;
+    font-size: 100px;
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+    gap: 50px;
+    height: 60vh;
+
+}
+
+#newGameBtn {
+    height: 100px;
+    width: 300px;
+    font-size: 30px;    
+    border-radius: 45px;
+    background-color: chocolate;
+    cursor: pointer;
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+}
+
+#startButton {
+    height: 100px;
+    width: 400px;
+    font-size: 30px;    
+    border-radius: 45px;
+    background-color: chocolate;
+    cursor: pointer;
+    z-index: 2;
+    font-family: 'Orbitron', sans-serif;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.enemy {
+
+    text-align: center;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    bottom: 0px;
+    left: 50px;
+  
+}
+
+.enemy2 {
+    text-align: center;
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    bottom: 0px;
+    left: 0px;
+}
+
+.enemy3{
+    text-align: center;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.enemy4 {
+    text-align: center;
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    top: 0px;
+    left: 0px;
+}
