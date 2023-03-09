@@ -10,14 +10,17 @@
 #timer {
     font-family: 'Orbitron', sans-serif;
     font-family: 'Press Start 2P', cursive;
+    color: red;
 }
 
 #highscore {
     font-family: 'Orbitron', sans-serif;
     font-family: 'Press Start 2P', cursive;
+    color: red;
 }
 body {
-    background-image: url("background.jpg");
+    background-image: url("pixelforest.png");
+    background-size: cover;
     max-width: 100vw;
     max-height: 100vh;
     overflow: hidden;
@@ -38,7 +41,7 @@ body {
     flex-direction: column;
     color: red;
     font-size: 100px;
-    z-index: 2;
+    z-index: 3;
     font-family: 'Orbitron', sans-serif;
     font-family: 'Press Start 2P', cursive;
     gap: 50px;

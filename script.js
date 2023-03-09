@@ -36,17 +36,24 @@ function largest(arr) {
       
   return max; 
 } 
+
   
 let arr = JSON.parse(localStorage.getItem("Highscore"));
 highScore.innerHTML = "Highscore: " + largest(arr);
+
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
 
 document.addEventListener("keydown", (e) => {
 
     switch (e.key) {
         case "w":
         case "ArrowUp":
-            beeBottom += 50;
-            hero.style.bottom = beeBottom + "px"
+            if (beeBottom + hero.offsetHeight < screenHeight) {
+                // If not, update the hero's position
+                beeBottom += 50;
+                hero.style.bottom = beeBottom + "px";
+              }
             if(heroRotation = -90) {
                 heroRotation += 90
                 hero.style.rotate = heroRotation + "deg";
@@ -55,11 +62,15 @@ document.addEventListener("keydown", (e) => {
                 heroRotation += -90
                 hero.style.rotate = heroRotation + "deg";
             }
+     
             break;
         case "s":
         case "ArrowDown":
-            beeBottom -= 50;
-            hero.style.bottom = beeBottom + "px";
+            if (beeBottom + 50 - hero.offsetHeight > 0) {
+                // If not, update the hero's position
+                beeBottom -= 50;
+                hero.style.bottom = beeBottom + "px";
+              }
             if(heroRotation = -90) {
                 heroRotation += -90
                 hero.style.rotate = heroRotation + "deg";
@@ -71,8 +82,11 @@ document.addEventListener("keydown", (e) => {
             break;
         case "d":
         case "ArrowRight":
-            beeLeft += 50;
-            hero.style.left = beeLeft + "px"
+            if (beeLeft + hero.offsetWidth < screenWidth) {
+                // If not, update the hero's position
+                beeLeft += 50;
+                hero.style.left = beeLeft + "px";
+              }
             if(heroRotation != 90) {
             heroRotation += 90
             hero.style.rotate = heroRotation + "deg";
@@ -84,8 +98,11 @@ document.addEventListener("keydown", (e) => {
             break;
         case "a":
         case "ArrowLeft":
-            beeLeft -= 50;
-            hero.style.left = beeLeft + "px";
+            if (beeLeft + 30 - hero.offsetWidth > 0) {
+                // If not, update the hero's position
+                beeLeft -= 50;
+                hero.style.left = beeLeft + "px";
+              }
             if(heroRotation != -90) {
                 heroRotation -= 90
                 hero.style.rotate = heroRotation + "deg";
@@ -124,12 +141,13 @@ function collision (){
 
     let arr = JSON.parse(localStorage.getItem("Highscore"));
     document.getElementById("highScore").innerHTML = "Highscore: " + largest(arr);
-    startButton.remove();
+    totalSeconds = 0;
 
         newGameBtn.onclick = function() {
             location.reload();
         }
-}
+    }
+  
 
 function createEnemy() {
 
@@ -292,8 +310,7 @@ function createEnemyTop() {
                 createEnemyTop();
                 }
                 if((totalSeconds > 90)) {
-                    createEnemyTop();
-                    createEnemyTop();
+                    enemySpeed4 = -30;
                       }
             }
 
@@ -377,7 +394,7 @@ function timerEnemies () {
           setTimeout(() => {
             createEnemyTop();
           }, "90000")
-}
+        }
 
 startButton.addEventListener("click", () => {  
         hero.style.display = "block";
@@ -386,9 +403,7 @@ startButton.addEventListener("click", () => {
         timerEnemies();
         startButton.remove();
         })
-        
-      
-    
 
 
+        requestAnimationFrame()
 
